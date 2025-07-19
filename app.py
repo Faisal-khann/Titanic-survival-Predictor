@@ -73,10 +73,6 @@ elif section == "EDA":
     if eda_type == "Univariate Analysis":
         st.subheader("🔍 Univariate Analysis")
 
-       # --- Univariate Analysis ---
-    if eda_type == "Univariate Analysis":
-        st.subheader("🔍 Univariate Analysis")
-
         st.markdown("**Missing Values Heatmap**")
         fig1, ax1 = plt.subplots()
         sns.heatmap(df.isnull(), cbar=False, cmap="viridis", ax=ax1)
@@ -105,7 +101,7 @@ elif section == "EDA":
         st.pyplot(fig_pie)
 
 
-        st.markdown("**Passenger Gender Distribution (Bar Chart)**")
+        st.markdown("**Passenger Gender Distribution**")
         fig_gender, ax_gender = plt.subplots()
         plt.grid(axis='y', linestyle='--', alpha=0.7)
         ax_gender = sns.countplot(data=df, x='Sex', hue='Sex')
@@ -133,10 +129,20 @@ elif section == "EDA":
         st.write(Pclass_rate.round(2))
 
         st.markdown("**Age Distribution**")
-        fig2, ax2 = plt.subplots()
-        sns.histplot(df['Age'].dropna(), bins=30, kde=True, ax=ax2)
-        ax2.set_title("Age Distribution")
-        st.pyplot(fig2)
+        fig_age, ax_age = plt.subplots(figsize=(10, 5))
+        plt.grid(axis='y', linestyle='--', alpha=0.7)
+        sns.histplot(df['Age'], bins=30, kde=True, ax=ax_age)
+        ax_age.set_title("Age Distribution")
+        st.pyplot(fig_age)
+
+        st.markdown("### Conclusion on Age Distribution:")
+        st.markdown("""
+        - Most passengers were between **20 and 40 years old**.
+        - The distribution is slightly **right-skewed**, indicating fewer older passengers.
+        - This suggests the dataset has more **young and middle-aged adults**.
+        - **Age** could be a useful feature for predicting survival.
+        """)
+
 
         st.markdown("**Fare Distribution**")
         fig3, ax3 = plt.subplots()
