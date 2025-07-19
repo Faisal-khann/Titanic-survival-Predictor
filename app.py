@@ -16,7 +16,7 @@ st.title("Titanic Survival Prediction App")
 
 # === Sidebar - Navigation ===
 st.sidebar.title("Titanic Survival Predictor ")
-img = Image.open('ship.png')
+img = Image.open('titanic-ship.png')
 st.sidebar.image(img)
 section = st.sidebar.radio("Choose Section", ["Prediction", "EDA"])
 
@@ -168,23 +168,62 @@ elif section == "EDA":
     elif eda_type == "Bivariate Analysis":
         st.subheader("Bivariate Analysis")
 
-        st.markdown("**Survival by Sex**")
-        fig6, ax6 = plt.subplots()
-        sns.countplot(data=df, x='Sex', hue='Survived', ax=ax6)
-        ax6.set_title("Survival Count by Sex")
-        st.pyplot(fig6)
+        st.markdown("**Survival by Gender**")
+        fig_gender_survival, ax = plt.subplots(figsize=(10, 5))
+        plt.grid(axis='y', linestyle='--', alpha=0.7)
+        
+        ax = sns.countplot(x='Survived', data=df, hue='Sex', ax=ax)
+        for bars in ax.containers:
+            ax.bar_label(bars)
 
-        st.markdown("**Survival by Pclass**")
-        fig7, ax7 = plt.subplots()
-        sns.countplot(data=df, x='Pclass', hue='Survived', ax=ax7)
-        ax7.set_title("Survival Count by Pclass")
-        st.pyplot(fig7)
+        plt.xticks([0, 1], ['Not Survived', 'Survived'])
+        ax.set_title('Survival by Gender')
+        ax.legend(title='Sex')
+        st.pyplot(fig_gender_survival)
+
+
+        st.markdown("**Survival by Passenger Class (Pclass)**")
+        fig_pclass_survival, ax = plt.subplots(figsize=(10, 5))
+        plt.grid(axis='y', linestyle='--', alpha=0.7)
+
+        ax = sns.countplot(data=df, x='Pclass', hue='Survived', ax=ax)
+        for bars in ax.containers:
+            ax.bar_label(bars)
+
+        ax.set_title("Survival Count by Passenger Class")
+        ax.legend(title='Survived', labels=['Not Survived', 'Survived'])
+        st.pyplot(fig_pclass_survival)
+
+
+        # Age Distribution KDE Plot
+        st.markdown("**Age Distribution by Survival**")
+        fig_kde, ax_kde = plt.subplots(figsize=(10, 5))
+        ax_kde.grid(axis='y', linestyle='--', alpha=0.7)
+
+        sns.kdeplot(df[df['Survived'] == 1]['Age'], label='Survived', fill=True, ax=ax_kde)
+        sns.kdeplot(df[df['Survived'] == 0]['Age'], label='Did Not Survive', fill=True, ax=ax_kde)
+
+        ax_kde.set_title("Age Distribution by Survival")
+        ax_kde.set_xlabel("Age")
+        ax_kde.set_ylabel("Density")
+        ax_kde.legend()
+        st.pyplot(fig_kde)
+
+        # Conclusion
+        st.markdown("### Conclusion of age-distribution :")
+        st.markdown("""
+        - Females had a higher chance of survival.
+        - Passengers from 1st class had better survival rates.
+        - Younger and high-fare passengers showed better survival.
+        - **From the age distribution plot**, passengers who did not survive were more concentrated in the 20–40 age range, while survivors included more children (ages 0–10) and some older adults. This supports the idea that rescue protocols like *'women and children first'* played a key role in survival outcomes.
+        """)
 
         st.markdown("**Age vs Fare (colored by Survival)**")
         fig8, ax8 = plt.subplots()
         sns.scatterplot(data=df, x='Age', y='Fare', hue='Survived', ax=ax8)
         ax8.set_title("Age vs Fare Colored by Survival")
         st.pyplot(fig8)
+
 
         st.markdown("### Conclusion:")
         st.info("""
