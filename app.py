@@ -54,15 +54,17 @@ elif section == "EDA":
     # Display business objective
     with st.expander("Business Objective & Real-World Application"):
         st.markdown("""
-        **Objective:**  
-        Analyze Titanic dataset to identify key survival factors and build a prediction model.  
-        
-        **Real-World Applications:**
-        - Cruise ship safety planning  
-        - Emergency evacuation strategy  
-        - Insurance underwriting  
-        - Passenger risk profiling  
-        """)
+        ### **Business Objective:**
+        To perform an in-depth analysis of the Titanic passenger dataset and build a machine learning model that can accurately predict passenger survival.  
+        The goal is to understand key factors influencing survival — such as age, gender, class, and fare — and translate these insights into actionable intelligence.
+
+        ### **Real-World Applications:**
+        - **Maritime Safety Planning:** Improve protocols for passenger safety and lifeboat allocation during maritime disasters.
+        - **Emergency Response Strategy:** Guide evacuation priorities and crew training using demographic survival patterns.
+        - **Insurance & Risk Assessment:** Assist insurers in evaluating travel-related risk based on passenger profiles.
+        - **Policy Development:** Inform regulatory decisions regarding safety standards on passenger ships.
+        """)    
+
 
     eda_type = st.sidebar.radio("EDA Type", ["Univariate Analysis", "Bivariate Analysis"])
 
@@ -150,7 +152,7 @@ elif section == "EDA":
         ax3.set_title("Fare Distribution")
         st.pyplot(fig3)
 
-        st.markdown("### 📊 Final Conclusion from Univariate Analysis:")
+        st.markdown("### Final Conclusion from Univariate Analysis:")
         st.info(f"""
         - **Most passengers were aged between 20 and 40**, indicating a young-to-middle-aged majority.
         - **Fare distribution** is highly **right-skewed**, with most passengers paying lower fares.
