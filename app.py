@@ -244,3 +244,12 @@ elif section == "EDA":
         - **Passengers who paid higher fares (mostly First Class) and younger passengers were more likely to survive.**  
         The scatter plot highlights a survival cluster among wealthier and younger individuals, indicating a combined effect of socio-economic status and age on survival outcomes.
         """)
+
+    st.markdown(
+        """
+        <div style="text-align: center; padding: 10px; font-size: 14px;">
+            Made with <span style="color: #e25555;">❤️</span> by <strong>Faisal Khan</strong>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
