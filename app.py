@@ -52,7 +52,7 @@ elif section == "EDA":
     st.header("📊 Exploratory Data Analysis")
 
     # Display business objective
-    with st.expander("📌 Business Objective & Real-World Application"):
+    with st.expander("Business Objective & Real-World Application"):
         st.markdown("""
         **Objective:**  
         Analyze Titanic dataset to identify key survival factors and build a prediction model.  
@@ -70,6 +70,10 @@ elif section == "EDA":
         st.write(df.head())
 
     # --- Univariate Analysis ---
+    if eda_type == "Univariate Analysis":
+        st.subheader("🔍 Univariate Analysis")
+
+       # --- Univariate Analysis ---
     if eda_type == "Univariate Analysis":
         st.subheader("🔍 Univariate Analysis")
 
@@ -92,9 +96,26 @@ elif section == "EDA":
 
         st.markdown("**Survival Count**")
         fig4, ax4 = plt.subplots()
-        sns.countplot(x='Survived', data=df, ax=ax4)
-        ax4.set_title("Survival Count (0 = Not Survived, 1 = Survived)")
+        plt.grid(axis='y', linestyle='--', alpha=0.7)
+        ax4 = sns.countplot(x='Survived', data=df, hue='Survived')
+        plt.xticks([0, 1], ['Not Survived', 'Survived'])
+        for bars in ax4.containers:
+            ax4.bar_label(bars)
+        plt.title("Survival Count")
         st.pyplot(fig4)
+
+        survival_rate = df['Survived'].value_counts(normalize=True) * 100
+        st.markdown("**Survival Rate (%):**")
+        st.write(survival_rate.round(2))
+
+        st.markdown("**Survival Distribution Pie Chart**")
+        fig_pie, ax_pie = plt.subplots()
+        survival_count = df['Survived'].value_counts()
+        ax_pie = survival_count.plot(kind='pie', autopct='%.2f', startangle=90, labels=['Not Survived', 'Survived'], colors=['#ff9999','#66b3ff'])
+        ax_pie.set_ylabel('')  # Remove y-axis label
+        ax_pie.set_title("Survival Distribution (Pie Chart)")
+        st.pyplot(fig_pie)
+
 
         st.markdown("**Passenger Gender Distribution**")
         fig5, ax5 = plt.subplots()
@@ -120,9 +141,10 @@ elif section == "EDA":
         - Most passengers were in the lower age bracket.
         - Fare distribution is right-skewed; few high-paying passengers.
         - More males than females traveled.
-        - Majority did not survive.
+        - Majority did not survive (around {:.1f}%).
         - Majority of passengers were from 3rd class.
-        """)
+        """.format(survival_rate[0]))
+
 
 
     # --- Bivariate Analysis ---
@@ -153,5 +175,3 @@ elif section == "EDA":
         - Passengers from 1st class had better survival rates.
         - Younger and high-fare passengers showed better survival.
         """)
-
-
