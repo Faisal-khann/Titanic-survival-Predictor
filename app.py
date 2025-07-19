@@ -82,18 +82,6 @@ elif section == "EDA":
         sns.heatmap(df.isnull(), cbar=False, cmap="viridis", ax=ax1)
         st.pyplot(fig1)
 
-        st.markdown("**Age Distribution**")
-        fig2, ax2 = plt.subplots()
-        sns.histplot(df['Age'].dropna(), bins=30, kde=True, ax=ax2)
-        ax2.set_title("Age Distribution")
-        st.pyplot(fig2)
-
-        st.markdown("**Fare Distribution**")
-        fig3, ax3 = plt.subplots()
-        sns.histplot(df['Fare'], bins=30, kde=True, ax=ax3)
-        ax3.set_title("Fare Distribution")
-        st.pyplot(fig3)
-
         st.markdown("**Survival Count**")
         fig4, ax4 = plt.subplots()
         plt.grid(axis='y', linestyle='--', alpha=0.7)
@@ -117,11 +105,19 @@ elif section == "EDA":
         st.pyplot(fig_pie)
 
 
-        st.markdown("**Passenger Gender Distribution**")
-        fig5, ax5 = plt.subplots()
-        sns.countplot(data=df, x='Sex', ax=ax5)
-        ax5.set_title("Passenger Gender Count")
-        st.pyplot(fig5)
+        st.markdown("**Passenger Gender Distribution (Bar Chart)**")
+        fig_gender, ax_gender = plt.subplots()
+        plt.grid(axis='y', linestyle='--', alpha=0.7)
+        ax_gender = sns.countplot(data=df, x='Sex', hue='Sex')
+        for bars in ax_gender.containers:
+            ax_gender.bar_label(bars)
+        ax_gender.set_title("Gender Distribution")
+        st.pyplot(fig_gender)
+
+        gender_rate = df['Sex'].value_counts(normalize=True) * 100
+        st.markdown("**Gender Percentage Distribution:**")
+        st.write(gender_rate.round(2))
+
 
         st.markdown("**Passenger Class Distribution (Pclass)**")
         fig6, ax6 = plt.subplots()
@@ -135,6 +131,18 @@ elif section == "EDA":
         Pclass_rate = df['Pclass'].value_counts(normalize=True) * 100
         st.markdown("**Pclass Percentage Distribution:**")
         st.write(Pclass_rate.round(2))
+
+        st.markdown("**Age Distribution**")
+        fig2, ax2 = plt.subplots()
+        sns.histplot(df['Age'].dropna(), bins=30, kde=True, ax=ax2)
+        ax2.set_title("Age Distribution")
+        st.pyplot(fig2)
+
+        st.markdown("**Fare Distribution**")
+        fig3, ax3 = plt.subplots()
+        sns.histplot(df['Fare'], bins=30, kde=True, ax=ax3)
+        ax3.set_title("Fare Distribution")
+        st.pyplot(fig3)
 
         st.markdown("### 📝 Conclusion:")
         st.info("""
