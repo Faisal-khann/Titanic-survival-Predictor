@@ -49,7 +49,7 @@ if section == "Prediction":
 
 # === EDA Section ===
 elif section == "EDA":
-    st.header("📊 Exploratory Data Analysis")
+    st.header("Exploratory Data Analysis")
 
     # Display business objective
     with st.expander("Business Objective & Real-World Application"):
@@ -71,7 +71,7 @@ elif section == "EDA":
 
     # --- Univariate Analysis ---
     if eda_type == "Univariate Analysis":
-        st.subheader("🔍 Univariate Analysis")
+        st.subheader("Univariate Analysis")
 
         st.markdown("**Missing Values Heatmap**")
         fig1, ax1 = plt.subplots()
@@ -79,14 +79,14 @@ elif section == "EDA":
         st.pyplot(fig1)
 
         st.markdown("**Survival Count**")
-        fig4, ax4 = plt.subplots()
+        fig2, ax2 = plt.subplots()
         plt.grid(axis='y', linestyle='--', alpha=0.7)
-        ax4 = sns.countplot(x='Survived', data=df, hue='Survived')
+        ax2 = sns.countplot(x='Survived', data=df, hue='Survived')
         plt.xticks([0, 1], ['Not Survived', 'Survived'])
-        for bars in ax4.containers:
-            ax4.bar_label(bars)
+        for bars in ax2.containers:
+            ax2.bar_label(bars)
         plt.title("Survival Count")
-        st.pyplot(fig4)
+        st.pyplot(fig2)
 
         survival_rate = df['Survived'].value_counts(normalize=True) * 100
         st.markdown("**Survival Rate (%):**")
@@ -115,7 +115,7 @@ elif section == "EDA":
         st.write(gender_rate.round(2))
 
 
-        st.markdown("**Passenger Class Distribution (Pclass)**")
+        st.markdown("**Passenger Class Distribution**")
         fig6, ax6 = plt.subplots()
         plt.grid(axis='y', linestyle='--', alpha=0.7)
         ax6 = sns.countplot(data=df, x='Pclass', hue='Pclass')
@@ -150,20 +150,21 @@ elif section == "EDA":
         ax3.set_title("Fare Distribution")
         st.pyplot(fig3)
 
-        st.markdown("### 📝 Conclusion:")
-        st.info("""
-        - Most passengers were in the lower age bracket.
-        - Fare distribution is right-skewed; few high-paying passengers.
-        - More males than females traveled.
-        - Majority did not survive (around {:.1f}%).
-        - Majority of passengers were from 3rd class.
-        """.format(survival_rate[0]))
+        st.markdown("### 📊 Final Conclusion from Univariate Analysis:")
+        st.info(f"""
+        - **Most passengers were aged between 20 and 40**, indicating a young-to-middle-aged majority.
+        - **Fare distribution** is highly **right-skewed**, with most passengers paying lower fares.
+        - **Survival rate** shows that approximately **{survival_rate[1]:.1f}%** of passengers survived the disaster.
+        - **Gender distribution** reveals more **males** than females on board (**{gender_rate['male']:.1f}% male**).
+        - **Passenger Class** was dominated by **3rd class travelers**, who made up the largest group (**{Pclass_rate[3]:.1f}%**).
+        - These univariate insights suggest that **age, fare, class, and gender** are potentially strong features for survival prediction.
+        """)
 
 
 
     # --- Bivariate Analysis ---
     elif eda_type == "Bivariate Analysis":
-        st.subheader("🔍 Bivariate Analysis")
+        st.subheader("Bivariate Analysis")
 
         st.markdown("**Survival by Sex**")
         fig6, ax6 = plt.subplots()
@@ -183,7 +184,7 @@ elif section == "EDA":
         ax8.set_title("Age vs Fare Colored by Survival")
         st.pyplot(fig8)
 
-        st.markdown("### 📝 Conclusion:")
+        st.markdown("### Conclusion:")
         st.info("""
         - Females had a higher chance of survival.
         - Passengers from 1st class had better survival rates.
