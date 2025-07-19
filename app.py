@@ -1,0 +1,157 @@
+import streamlit as st
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+import joblib
+from PIL import Image
+
+# Load model and dataset
+model = joblib.load("final_model.pkl")
+df = pd.read_csv("titanic.csv") 
+
+# Streamlit config
+st.set_page_config(page_title="Titanic Survival Predictor", layout="centered")
+st.title("Titanic Survival Prediction App")
+
+# === Sidebar - Navigation ===
+st.sidebar.title("Titanic Survival Predictor ")
+img = Image.open('ship.png')
+st.sidebar.image(img)
+section = st.sidebar.radio("Choose Section", ["Prediction", "EDA"])
+
+# === Prediction Section ===
+if section == "Prediction":
+    st.header("Titanic Survival Prediction")
+
+    sex = st.selectbox("Sex", ['male', 'female'])
+    pclass = st.selectbox("Passenger Class (Pclass)", [1, 2, 3])
+    age = st.slider("Age", 0, 80, 30)
+    fare = st.slider("Fare ($)", 0.0, 250.0, 50.0)
+    family_size = st.slider("Family Size (SibSp + Parch + 1)", 1, 11, 1)
+
+    sex = 1 if sex == 'male' else 0
+
+    input_data = pd.DataFrame([{
+        'Pclass': pclass,
+        'Sex': sex,
+        'Age': age,
+        'Fare': fare,
+        'FamilySize': family_size,
+    }])
+
+    if st.button("Predict Survival"):
+        prediction = model.predict(input_data)[0]
+        proba = model.predict_proba(input_data)[0][1]
+        result = "Survived!" if prediction == 1 else "Did Not Survive"
+        st.subheader(f"Prediction Result: {result}")
+        st.write(f"Survival Probability: **{proba:.2%}**")
+
+# === EDA Section ===
+elif section == "EDA":
+    st.header("📊 Exploratory Data Analysis")
+
+    # Display business objective
+    with st.expander("📌 Business Objective & Real-World Application"):
+        st.markdown("""
+        **Objective:**  
+        Analyze Titanic dataset to identify key survival factors and build a prediction model.  
+        
+        **Real-World Applications:**
+        - Cruise ship safety planning  
+        - Emergency evacuation strategy  
+        - Insurance underwriting  
+        - Passenger risk profiling  
+        """)
+
+    eda_type = st.sidebar.radio("EDA Type", ["Univariate Analysis", "Bivariate Analysis"])
+
+    if st.checkbox("Show Raw Data"):
+        st.write(df.head())
+
+    # --- Univariate Analysis ---
+    if eda_type == "Univariate Analysis":
+        st.subheader("🔍 Univariate Analysis")
+
+        st.markdown("**Missing Values Heatmap**")
+        fig1, ax1 = plt.subplots()
+        sns.heatmap(df.isnull(), cbar=False, cmap="viridis", ax=ax1)
+        st.pyplot(fig1)
+
+        st.markdown("**Age Distribution**")
+        fig2, ax2 = plt.subplots()
+        sns.histplot(df['Age'].dropna(), bins=30, kde=True, ax=ax2)
+        ax2.set_title("Age Distribution")
+        st.pyplot(fig2)
+
+        st.markdown("**Fare Distribution**")
+        fig3, ax3 = plt.subplots()
+        sns.histplot(df['Fare'], bins=30, kde=True, ax=ax3)
+        ax3.set_title("Fare Distribution")
+        st.pyplot(fig3)
+
+        st.markdown("**Survival Count**")
+        fig4, ax4 = plt.subplots()
+        sns.countplot(x='Survived', data=df, ax=ax4)
+        ax4.set_title("Survival Count (0 = Not Survived, 1 = Survived)")
+        st.pyplot(fig4)
+
+        st.markdown("**Passenger Gender Distribution**")
+        fig5, ax5 = plt.subplots()
+        sns.countplot(data=df, x='Sex', ax=ax5)
+        ax5.set_title("Passenger Gender Count")
+        st.pyplot(fig5)
+
+        st.markdown("**Passenger Class Distribution (Pclass)**")
+        fig6, ax6 = plt.subplots()
+        plt.grid(axis='y', linestyle='--', alpha=0.7)
+        ax6 = sns.countplot(data=df, x='Pclass', hue='Pclass')
+        for bars in ax6.containers:
+            ax6.bar_label(bars)
+        plt.title("Passenger Class Distribution")
+        st.pyplot(fig6)
+
+        Pclass_rate = df['Pclass'].value_counts(normalize=True) * 100
+        st.markdown("**Pclass Percentage Distribution:**")
+        st.write(Pclass_rate.round(2))
+
+        st.markdown("### 📝 Conclusion:")
+        st.info("""
+        - Most passengers were in the lower age bracket.
+        - Fare distribution is right-skewed; few high-paying passengers.
+        - More males than females traveled.
+        - Majority did not survive.
+        - Majority of passengers were from 3rd class.
+        """)
+
+
+    # --- Bivariate Analysis ---
+    elif eda_type == "Bivariate Analysis":
+        st.subheader("🔍 Bivariate Analysis")
+
+        st.markdown("**Survival by Sex**")
+        fig6, ax6 = plt.subplots()
+        sns.countplot(data=df, x='Sex', hue='Survived', ax=ax6)
+        ax6.set_title("Survival Count by Sex")
+        st.pyplot(fig6)
+
+        st.markdown("**Survival by Pclass**")
+        fig7, ax7 = plt.subplots()
+        sns.countplot(data=df, x='Pclass', hue='Survived', ax=ax7)
+        ax7.set_title("Survival Count by Pclass")
+        st.pyplot(fig7)
+
+        st.markdown("**Age vs Fare (colored by Survival)**")
+        fig8, ax8 = plt.subplots()
+        sns.scatterplot(data=df, x='Age', y='Fare', hue='Survived', ax=ax8)
+        ax8.set_title("Age vs Fare Colored by Survival")
+        st.pyplot(fig8)
+
+        st.markdown("### 📝 Conclusion:")
+        st.info("""
+        - Females had a higher chance of survival.
+        - Passengers from 1st class had better survival rates.
+        - Younger and high-fare passengers showed better survival.
+        """)
+
+
