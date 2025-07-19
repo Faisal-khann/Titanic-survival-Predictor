@@ -162,8 +162,6 @@ elif section == "EDA":
         - These univariate insights suggest that **age, fare, class, and gender** are potentially strong features for survival prediction.
         """)
 
-
-
     # --- Bivariate Analysis ---
     elif eda_type == "Bivariate Analysis":
         st.subheader("Bivariate Analysis")
@@ -245,7 +243,7 @@ elif section == "EDA":
         The scatter plot highlights a survival cluster among wealthier and younger individuals, indicating a combined effect of socio-economic status and age on survival outcomes.
         """)
 
-    st.markdown(
+st.markdown(
         """
         <div style="text-align: center; padding: 10px; font-size: 14px;">
             Made with <span style="color: #e25555;">❤️</span> by <strong>Faisal Khan</strong>
