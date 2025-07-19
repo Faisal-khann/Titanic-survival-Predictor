@@ -225,9 +225,22 @@ elif section == "EDA":
         st.pyplot(fig8)
 
 
-        st.markdown("### Conclusion:")
-        st.info("""
-        - Females had a higher chance of survival.
-        - Passengers from 1st class had better survival rates.
-        - Younger and high-fare passengers showed better survival.
+        st.markdown("### Final Conclusion from Bivariate Analysis")
+
+        st.markdown("""
+        #### **Gender vs Survival**
+        - **Females exhibited significantly higher survival rates compared to males.**  
+        This outcome aligns with historical accounts and rescue priorities during the Titanic disaster, where *"women and children first"* was a guiding principle during evacuation efforts.
+
+        #### **Passenger Class (Pclass) vs Survival**
+        - **Passengers traveling in First Class (Pclass = 1) had the highest survival rate**, while those in Third Class experienced the lowest.  
+        This indicates a strong socio-economic bias in survival, likely influenced by cabin proximity to lifeboats, access to crew guidance, and prioritization during rescue.
+
+        #### **Age vs Survival**
+        - **Survivors tended to include more young children (ages 0–10) and some older adults**, while **non-survivors were more concentrated in the 20–40 age range**.  
+        This supports the theory that families and younger passengers received preferential treatment during rescue operations.
+
+        #### **Fare vs Age (Colored by Survival)**
+        - **Passengers who paid higher fares (mostly First Class) and younger passengers were more likely to survive.**  
+        The scatter plot highlights a survival cluster among wealthier and younger individuals, indicating a combined effect of socio-economic status and age on survival outcomes.
         """)
