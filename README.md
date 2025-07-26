@@ -1,6 +1,7 @@
-# Survival Prediction & Exploratory Analysis -- webApp
-This project presents a comprehensive end-to-end machine learning workflow using the iconic Titanic dataset from Kaggle, which is a classic binary classification task aimed at predicting passenger survival. The goal is to build a robust, interpretable, and deployable model capable of estimating the likelihood of survival based on a variety of passenger features. It is complete end-to-end machine learning project that includes data cleaning, feature engineering, model comparison, hyperparameter tuning, and deployment using Streamlit.
----
+## Survival Prediction & Exploratory Analysis -- webApp
+
+This project presents a comprehensive end-to-end machine learning workflow using the iconic Titanic dataset from Kaggle, which is a classic binary classification task aimed at predicting passenger survival. The goal is to build a robust, interpretable, and deployable model capable of estimating the likelihood of survival based on a variety of passenger features. It is complete end-to-end machine learning project that includes data cleaning, feature engineering, model comparison, hyperparameter tuning, and deployment using Streamlit.
+
 
 ## Features
 
