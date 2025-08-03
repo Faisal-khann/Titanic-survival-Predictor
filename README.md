@@ -22,16 +22,6 @@ Although Titanic is a historical event, this analysis simulates a real-world pro
 
 <hr>
 
-<h2><b>Objective</b></h2>
-
-<ul>
-  <li>Analyze patterns in the Titanic dataset using <b>exploratory data analysis (EDA)</b></li>
-  <li>Handle <b>missing data</b> and prepare features for modeling</li>
-  <li>Build a <b>classification model (Random Forest)</b> to predict passenger survival</li>
-  <li>Evaluate model performance and interpret <b>feature importance</b></li>
-</ul>
-
-<hr>
 
 <h2><b>Business Value</b></h2>
 
