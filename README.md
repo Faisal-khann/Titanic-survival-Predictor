@@ -55,9 +55,11 @@ Although Titanic is a historical event, this analysis simulates a real-world pro
 - Visualizations: Age distribution, survival by class/gender, etc.
 - Deployment via **Streamlit**
 
-## Live App
+## Resources
 
-👉 [Click here to try the app](https://faisal-khann-titanic-survival-predictor-app-hywqlp.streamlit.app/)
+- Full Jupyter Notebook: [`Workspace.ipynb`](Workspace.ipynb)
+- Live App: [`titanic_app.py`](https://faisal-khann-titanic-survival-predictor-app-hywqlp.streamlit.app/)
+- 
 
 ## Project Structure
     ├── titanic_app.py # Streamlit app
@@ -98,15 +100,27 @@ The project follows a complete data science pipeline that includes:
 (Add a screenshot of your Streamlit app here if you want)
 
 --->
+## Author
+
+**Faisal Khan**  
+*Data Analyst | Python | Machine learnig | Data Science*
 
 ## Contact
 
-Faisal Khan
-[LinkedIn](http://www.linkedin.com/in/faisal-khan-332b882bb) | [GitHub](https://github.com/Faisal-khann)
+For any questions, collaboration opportunities, or project-related inquiries, feel free to reach out:
 
+- 📧 [Email](mailto:thisside.faisalkhan@example.com)  
+- 💼 [LinkedIn](http://www.linkedin.com/in/faisal-khan-332b882bb)
+
+Let’s connect and build something impactful!
+
+---
 ## 📌 License
 
 This project is for educational purposes.
+
+---
+> Made with ❤️ using Jupyter Notebook & Power 
 
 
 
