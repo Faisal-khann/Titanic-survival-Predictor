@@ -4,7 +4,7 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 import joblib
-from PIL import Image
+from PIL import Image 
 
 # Load model and dataset
 model = joblib.load("final_model.pkl")
